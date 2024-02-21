@@ -9,3 +9,4 @@ def hello():
 
 
 from .users.controller import UserController
+from .newspaper_subscription.controller import NewspaperSubscriptionController

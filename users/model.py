@@ -18,5 +18,14 @@ class User(db.Model):
     last_name = db.Column(db.String(200), nullable=False)
     chat_id = db.Column(db.Integer, nullable=False, unique=True)
 
-    def to_dictionary(self):
-        return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
+    newspaper_subscriptions = db.relationship("NewspaperSubscription", backref="users")
+
+    def __repr__(self):
+        return f'<User "{self.username}">'
+
+    def to_dict(self):
+        user_dict = {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        user_dict["newspaper_subscriptions"] = [
+            ns.to_dict() for ns in self.newspaper_subscriptions
+        ]
+        return user_dict

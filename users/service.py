@@ -6,18 +6,14 @@ from .model import User
 
 class UserService:
     def get_by_id(self, id):
-        user = User.query.get(id).to_dictionary()
+        user = User.query.get(id)
 
-        return user
+        return user.to_dict()
 
     def get_all(self):
         users = User.query.all()
 
-        response = []
-        for user in users:
-            response.append(user.to_dictionary())
-
-        return response
+        return [user.to_dict() for user in users]
 
     def create(self, body):
         id = str(uuid.uuid4())
