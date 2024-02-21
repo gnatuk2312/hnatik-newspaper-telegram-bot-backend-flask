@@ -10,6 +10,11 @@ class UserService:
 
         return user.to_dict()
 
+    def get_by_chat_id(self, chat_id):
+        user = User.query.filter(User.chat_id == chat_id).one_or_404()
+
+        return user.to_dict()
+
     def get_all(self):
         users = User.query.all()
 

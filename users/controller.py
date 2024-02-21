@@ -13,6 +13,11 @@ class UserController:
         return user_service.get_by_id(id)
 
     @staticmethod
+    @app.get("/users/chat/<chat_id>")
+    def get_user_by_chat_id(chat_id):
+        return user_service.get_by_chat_id(chat_id)
+
+    @staticmethod
     @app.get("/users")
     def get_all_users():
         return user_service.get_all()
