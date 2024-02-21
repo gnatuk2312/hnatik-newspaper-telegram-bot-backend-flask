@@ -8,4 +8,4 @@ def hello():
     return "Hello world"
 
 
-from .users import urls
+from .users.controller import UserController

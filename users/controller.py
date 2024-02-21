@@ -1,29 +1,25 @@
 from flask import request
-import uuid
 
-from .. import db
-from .model import User
+from ..app import app
+from .service import UserService
 
-
-def get_all_users_controller():
-    users = User.query.all()
-
-    response = []
-    for user in users:
-        response.append(user.to_dictionary())
-
-    return response
+user_service = UserService()
 
 
-def create_user_controller():
-    body = request.get_json()
+class UserController:
+    @staticmethod
+    @app.get("/users/<id>")
+    def get_by_id(id):
+        return user_service.get_by_id(id)
 
-    id = str(uuid.uuid4())
-    new_user = User(id=id, username=body["username"])
+    @staticmethod
+    @app.get("/users")
+    def get_all():
+        return user_service.get_all()
 
-    db.session.add(new_user)
-    db.session.commit()
+    @staticmethod
+    @app.post("/users")
+    def create():
+        body = request.get_json()
 
-    response = User.query.get(id).to_dictionary()
-
-    return response
+        return user_service.create(body)
