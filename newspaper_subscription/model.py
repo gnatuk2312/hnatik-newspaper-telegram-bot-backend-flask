@@ -19,6 +19,7 @@ class NewspaperSubscription(db.Model):
     )
 
     subscription_type = db.Column(db.String(50), nullable=False)
+    params = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.String(50), db.ForeignKey("users.id"))
 
     def __repr__(self):
