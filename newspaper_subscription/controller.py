@@ -23,3 +23,8 @@ class NewspaperSubscriptionController:
         body = request.get_json()
 
         return newspaper_subscription_service.create(body)
+
+    @staticmethod
+    @app.delete("/newspaper-subscriptions/<user_id>")
+    def delete_all_newspaper_subscriptions_by_user_id(user_id):
+        return newspaper_subscription_service.delete_all_by_user_id(user_id)
